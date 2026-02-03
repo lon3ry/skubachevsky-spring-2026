@@ -1,0 +1,421 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{amsmath,amssymb,mathtools}
+\renewcommand{\theequation}{\thesection.\arabic{equation}}
+\mathtoolsset{showonlyrefs=true}
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\phi}{\varphi}
+\renewcommand{\kappa}{\varkappa}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\emptyset}{\varnothing}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\re}{Re}
+\newenvironment{Def}{\underline{Опр.}}{\par}
+\newenvironment{Theo}{\underline{T.}}{\par}
+\newenvironment{Ex}{\underline{Пр.}}{\par}
+\newenvironment{St}{\underline{Утв.}}{\par}
+\newenvironment{Cor}{\underline{След.}}{\par}
+\newcommand*{\hm}[1]{#1\nobreak\discretionary{}%
+    {\hbox{$\mathsurround=0pt #1$}}{}}
+\usepackage{enumitem}
+\newenvironment{Enum}{
+    \begin{enumerate}[leftmargin=1.75cm,topsep=5pt,parsep=0pt]{}
+}{
+    \end{enumerate}
+}
+\newenvironment{Itemize}{
+    \begin{itemize}[label={--},leftmargin=1.75cm,topsep=5pt,parsep=0pt]{}
+}{
+    \end{itemize}
+}
+\usepackage{float}
+\usepackage[top=25mm,bottom=30mm,left=20mm,right=20mm]{geometry}
+\usepackage{indentfirst}
+\frenchspacing
+\sloppy
+\usepackage{hyperref}
+\usepackage[usenames,dvipsnames,svgnames,table,rgb]{xcolor}
+\hypersetup{
+    unicode=true,
+    colorlinks=true,
+    linkcolor=black!15!blue,
+    citecolor=green,
+    filecolor=NavyBlue,
+    urlcolor=NavyBlue,
+}
+\usepackage{titleps}
+\newpagestyle{main}{
+    \setheadrule{0.4pt}
+    \sethead{Многомерный анализ, интегралы и ряды}{}{\hyperlink{toc}
+        {\;Назад к содержанию}}
+    \setfoot{}{\thepage}{}
+}
+\pagestyle{main}
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathreplacing}
+\newcommand\Section[1]{
+    \refstepcounter{section}
+    \section*{\raggedright
+        \arabic{section}. #1}
+    \addcontentsline{toc}{section}{
+        \arabic{section}. #1}
+}
+\newcommand\Subsection[1]{
+    \refstepcounter{subsection}
+    \subsection*{\raggedright
+        \arabic{section}.\arabic{subsection}. #1}
+    \addcontentsline{toc}{subsection}{
+        \arabic{section}.\arabic{subsection}. #1}
+}
+
+\begin{document}
+\begin{titlepage}
+\Large
+\centerline{Московский физико-технический институт}
+\vfill
+\vfill
+\vfill
+\begin{centering}
+{\bf Лекции Скубачевского~А.\,А. по решению задач из курса \\
+<<Многомерный анализ, интегралы и ряды>>\\}
+\end{centering}
+\vfill
+\vfill
+\begin{flushright}
+Автор:\\
+\href{https://github.com/lon3ry}{\textit{Максим Гуринов}}
+\end{flushright}
+\vfill
+\centerline{весна 2026}
+\end{titlepage}
+\setcounter{page}{2}
+\hypertarget{toc}{}
+\tableofcontents
+
+\newpage
+
+\Section{Комплексные числа}
+\Subsection{Алгебраическая форма записи}
+
+\begin{Def}
+Комплексное число~--- это число вида \(z = a + ib\), где \(a, b \in \R\),
+а~\(i\) такое число, что \(i^2 = -1\). Число \(a = \re z\) называется
+действительной частью~\(z\), \(b = \im z\)~--- мнимой.
+\end{Def}
+
+Пусть дано два комплексных числа \(z_1 = a_1 + ib_1\) и \(z_2 = a_2 +
+ib_2\). Рассмотрим некоторые операции с ними:
+\begin{Enum}
+\item Сложение (вычитание): \(z_1 \pm z_2 = (a_1 \pm a_2) + i(b_1 \pm
+b_2)\).
+\item Умножение: \(z_1 \cdot z_2 = (a_1 + i b_1)(a_2 + i b_2) = a_1 a_2 +
+a_2 i b_1 + a_1 i b_2 + i^2 b_1 b_2 = (a_1 a_2 \hm - b_1 b_2) + i(a_2 b_1 +
+a_1 b_2)\).
+\item Комплексное сопряженное: \(z = a + ib \Rightarrow \bar z = a - ib\).
+\item Модуль: \(|z|^2 = a^2 + b^2 = (a + ib)(a - ib) = z\bar z\).
+\item Деление: \(\displaystyle \frac{z_1}{z_2} = \frac{z_1 \cdot \bar
+z_2}{z_2 \cdot \bar z_2} = \frac{z_1 \cdot \bar z_2}{|z_2|^2}\).
+\end{Enum}
+Отметим, что \(z^2 \neq |z|^2\).
+
+\begin{Ex}
+\(z_1 = \sqrt 5 - i, z_2 = \sqrt 5 - 2i\).
+\begin{Enum}
+\item \(z_1 + z_2 = 2\sqrt 5 - 3i\).
+\item \(z_1 - z_2 = i\).
+\item \(z_1 \cdot z_2 = (\sqrt 5 - i)(\sqrt 5 - 2i) = 3 - 3i\sqrt 5\).
+\item \(\displaystyle \frac{z_1}{z_2} = \frac{z_1 \cdot \bar z_2}{|z_2|^2}
+= \frac{(\sqrt 5 - i)(\sqrt 5 + 2i)}{9} = \frac{7}{9} + \frac{\sqrt
+5}{9}i\).
+\end{Enum}
+\end{Ex}
+
+
+\Subsection{Геометрическая форма записи}
+
+\begin{Def}
+Комплексное число~--- точка на комплексной плоскости.
+\end{Def}
+
+\begin{Ex}
+\(z = 2 + 3i\).
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=0.5,>=stealth]
+\coordinate (P) at (2, 3);
+\coordinate (Q) at (2, -3);
+\draw[step=1cm,lightgray,very thin] (-6.5,-6.5) grid (6.5,6.5);
+\node[below] at (2, 0) {\(2\)};
+\node[left] at (0, 3) {\(3\)};
+\node[left] at (0, -3) {\(-3\)};
+\draw[color=red,thick] (0,0) -- (P);
+\draw[color=red,thick] (0,0) -- (Q);
+\draw[thick,->] (0,-6) -- (0,6) node[below left] {\(\im z\)};
+\draw[thick,->] (-6,0) -- (6,0) node[below left] {\(\re z\)};
+\draw (-0.15,3) -- (0.15,3);
+\draw (-0.15,-3) -- (0.15,-3);
+\draw[color=red,thick,dash pattern=on 8pt off 2pt] (P) -- (Q);
+\fill (P) circle (2pt) node[above right] {\(z\)};
+\fill (Q) circle (2pt) node[below right] {\(\bar z\)};
+\end{tikzpicture}
+\end{figure}
+При этом \(|z_1 - z_2|\)~--- расстояние между точками \(z_1\) и \(z_2\).
+\end{Ex}
+
+\newpage
+
+\begin{Ex}
+Изобразить множество всех точек комплексной плоскости, удовлетворяющих
+уравнению:
+\begin{Enum}
+\item \(|z - i| = 1\)~--- множество \(z\), удалённых от \(i\) на
+расстояние~1.
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=0.5,>=stealth]
+\draw[step=1cm,lightgray,very thin] (-6.5,-6.5) grid (6.5,6.5);
+\draw[thick,->] (0,-6) -- (0,6) node[below left] {\(\im z\)};
+\draw[thick,->] (-6,0) -- (6,0) node[below left] {\(\re z\)};
+\draw (-0.15,1) -- (0.15,1);
+\draw[color=red,thick] (0,1) circle (1);
+\node[left] at (0,1) {\(1\)};
+\end{tikzpicture}
+\end{figure}
+
+\item \(1 < |z + 3 + i| < 3\).
+
+Поскольку в формуле расстояния стоят плюсы, перепишем в более удобном виде:
+
+\[1 < |z - (-3 - i)| < 3 \Longleftrightarrow \left\{
+    \begin{aligned}
+    & |z - (-3 - i)| > 1, \\
+    & |z - (-3 - i)| < 3.
+    \end{aligned}
+\right .\]
+Первое уравнение системы отвечает внешней части окружности \(\omega_1\), а
+второе~--- внутренней части \(\omega_2\):
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=0.5,>=stealth]
+\coordinate (P) at (-3,-1);
+\draw[step=1cm,lightgray,very thin] (-6.5,-6.5) grid (6.5,6.5);
+\draw[thick,->] (0,-6) -- (0,6) node[below left] {\(\im z\)};
+\draw[thick,->] (-6,0) -- (6,0) node[below left] {\(\re z\)};
+\draw (-0.15,-1) -- (0.15,-1);
+\draw (-3,-0.15) -- (-3,0.15);
+\fill[even odd rule,fill opacity=0.3,red,draw=red,thick,dashed] (P) circle
+(3) (P) circle (1);
+\node[left] at (0,-1) {\(-1\)};
+\node[above] at (-3,0) {\(-3\)};
+\node[below] at (-4,-2) {\(\omega_1\)};
+\node[below] at (-5,-3.5) {\(\omega_2\)};
+\end{tikzpicture}
+\end{figure}
+
+\item \(|z|^2 - 6z - 6\bar z = 0\).
+
+Сразу неясно, что это такое. Возьмём \(z = x + iy\), тогда:
+\begin{gather}
+x^2 + y^2 - 6x - 6iy - 6x + 6iy = 0 \\
+x^2 + y^2 - 12x = 0 \\
+(x - 6)^2 + y^2 = 36
+\end{gather}
+Получили уравнение окружности.
+
+\item \(|z - i| = |z + i|\)~--- множество точек, равноудалённых от точек
+\((0,1)\) и \((0,-1)\) на комплексной плоскости, т.е. серединный
+перпендикуляр:
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=0.5,>=stealth]
+\draw[step=1cm,lightgray,very thin] (-6.5,-6.5) grid (6.5,6.5);
+\draw[thick,->] (0,-6) -- (0,6) node[below left] {\(\im z\)};
+\draw[thick,->] (-6,0) -- (6,0) node[below left] {\(\re z\)};
+\draw (-0.15,1) -- (0.15,1);
+\draw (-0.15,-1) -- (0.15,-1);
+\draw[thick,color=red] (-6,0) -- (6,0);
+\node[left] at (0,1) {\(1\)};
+\node[left] at (0,-1) {\(-1\)};
+\end{tikzpicture}
+\end{figure}
+\end{Enum}
+\end{Ex}
+
+
+\Subsection{Показательная и тригонометрические формы записи}
+
+Координаты \((x, y)\) точки \(z\) на комплексной плоскости можно
+представить в виде:
+\[x = |z| \cdot \cos \phi, \; y = |z| \cdot \sin \phi,\]
+где \(\phi\)~--- угол между радиус-вектором точки~\(z\) и положительным
+направлением оси~\(x\). Угол~\(\phi\) ещё называют аргументом \(z\) (\(\phi
+= \arg z\)).
+
+Положим по определению \(e^{i\phi} = \cos \phi + i\sin \phi\). Это
+выражение также называется формулой Эйлера.
+
+Тогда, переписав полученный ранее результат, получим показательную формулу
+записи комплексного числа:
+\[z = x + iy = |z|(\cos \phi + i\sin \phi) = ze^{i\phi}.\]
+
+\begin{Ex}
+Представить в тригонометрической и показательной форме.
+\begin{Enum}
+\item \(z_1 = 1 + i\sqrt 3\).
+\[|z| = \sqrt{1^2 + (\sqrt 3)^2} = 2, \; \tg \phi = \frac{\sqrt 3}{1} =
+\sqrt 3 \Rightarrow \phi = \frac{\pi}{3} + \pi n, \; n \in \Z.\]
+Однако угол \(\dfrac{\pi}{3} + \pi\) нам не подходит, т.к. \(z_1\)
+принадлежит первой четверти. Поэтому просто возьмём \(\phi =
+\dfrac{\pi}{3}\). Получим:
+\[z_1 = 2 \cdot \left(\cos \frac{\pi}{3} + i \sin\frac{\pi}{3}\right) =
+2e^{i\frac{\pi}{3}}.\]
+
+\item \(z_2 = 1 - i\).
+\begin{gather}
+|z_2| = \sqrt 2, \; \tg\phi = -1 \Rightarrow \sin\phi = -\frac{\pi}{4}, \\
+z_2 = \sqrt 2 \cdot \left(\cos\left(-\frac{\pi}{4}\right) +
+i\sin\left(-\frac{\pi}{4}\right)\right) = \sqrt 2 e^{-i\frac{\pi}{4}}.
+\end{gather}
+\end{Enum}
+\end{Ex}
+
+\begin{Ex}
+Упростить \(\dfrac{(1 + i\sqrt 3)^6}{(1 - i)^4}\).
+
+Заметим, что эта дробь равна \(\dfrac{z_1^6}{z_2^4}\), где \(z_1\) и
+\(z_2\)~--- числа из предыдущего примера. Тогда:
+\[\frac{z_1^6}{z_2^4} = \frac{64e^{i\frac{\pi}{3} \cdot
+6}}{4e^{-4\frac{\pi}{4} \cdot 4}} = 16 \frac{e^{2i\pi}}{e^{-i\pi}} = 16
+\cdot \frac{\cos 2\pi + i\sin 2\pi}{cos(-\pi) + i\sin(-\pi)} = -16.\]
+\end{Ex}
+Пример можно было решить и проще, если заметить, что:
+\[z = |z| \cdot e^{i\phi} \Rightarrow |z| = |z| \cdot |e^{i\phi}|
+\Rightarrow |e^{i\phi}| = 1.\]
+
+\begin{Ex}
+Решить уравнение \(z^3 = -1\).
+
+Попробуем для начала решить уравнение в общем виде:
+\[z^n = a.\]
+
+Для этого мы можем представить \(z\) и \(a\) соответственно как:
+\[z = |z|e^{i\phi}, \; a = |a|e^{i\alpha} \Rightarrow |z|^n e^{i\phi n} =
+|a|e^{i \alpha}.\]
+
+Два комплексных числа равны, если равны их модули и аргументы:
+\[\left\{
+    \begin{aligned}
+    & |z|^n = |a|, \\
+    & n \phi = \alpha + 2\pi k, \; k \in \Z.
+    \end{aligned}
+\right . \Rightarrow\left\{
+    \begin{aligned}
+    & |z| = \sqrt[n]{|a|}, \\
+    & \phi = \frac{\alpha}{n} + \frac{2\pi k}{n}, \; k \in \Z.
+    \end{aligned}
+\right .\]
+
+Таким образом, мы получили бесконечное число корней. Однако при \(k = 0\)
+имеем \(\phi = \alpha\), а при \(k = n\) получаем \(\phi = \alpha + 2\pi\),
+т.е. наши корни чередуются через n точек. Поэтому итоговый ответ:
+\[\phi_k = \frac{\alpha}{n} + \frac{2\pi k}{n}, \; k = 0, 1, \dots, n - 1.\]
+\end{Ex}
+
+Отметим, что если коэффициенты уравнения~--- действительные числа, то
+сопряжённое каждого комплексного корня также будет являться корнем.
+
+
+\Section{Интегралы}
+\Subsection{Интегрирование дробей}
+
+\begin{Ex}
+Вычислить \(\displaystyle\int\frac{x}{(x + 1)(x + 2)(x - 3)} \, dx\).
+
+Для решения разложим дробь под интегралом на элементарные:
+\[\frac{x}{(x + 1)(x + 2)(x - 3)} = \frac{A}{x + 1} + \frac{B}{x + 2} +
+\frac{C}{x - 3} = \frac{A(x + 2)(x - 3) + B(x + 1)(x - 3) + C(x + 1)(x +
+2)}{(x + 1)(x + 2)(x - 3)}\]
+
+\[x = A(x + 2)(x - 3) + B(x + 1)(x - 3) + C(x + 1)(x + 2)\]
+
+Два многочлена равны в двух случаях: а) если коэффициенты при
+соответствующих степенях равны; б) если многочлены равны при любом значении
+переменной. Воспользуемся вторым условием, тогда:
+\[
+\begin{array}{r@{}c@{}r@{\ }c@{\ }l}
+x = -1&\colon& -1 &=& -4A \Rightarrow A = \dfrac{1}{4}. \\
+x = -2&\colon& -2 &=& B \cdot (-1) \cdot (-5) \Rightarrow B = -\dfrac{2}{5}. \\
+x = 3&\colon& 3 &=& 20C \Rightarrow C = \dfrac{3}{20}.
+\end{array}
+\]
+
+Таким образом,
+\begin{multline}
+\int\frac{x}{(x + 1)(x + 2)(x - 3)} \, dx = \frac{1}{4} \int\frac{dx}{x +
+1} - \frac{2}{5}\int\frac{dx}{x + 2} + \frac{3}{20}\int\frac{dx}{x - 3} =
+\frac{1}{4}\ln|x + 1| -\\
+- \frac{2}{5}\ln|x + 2| + \frac{3}{20}\ln|x - 3| + C, \; C \in \R.
+\end{multline}
+\end{Ex}
+
+Ещё несколько примеров разложения дроби на элементарные:
+\begin{gather}
+\frac{1}{(x - 1)(x^2 + x + 1)} = \frac{A}{x - 1} + \frac{Bx + C}{x^2 + x +
+1}, \\
+\frac{1}{(x - 1)(x - 3)^3} = \frac{A}{x - 1} + \frac{B}{x - 3} +
+\frac{C}{(x - 3)^2} + \frac{D}{(x - 3)^3}.
+\end{gather}
+
+Стоит помнить, что дробь можно так разложить только если степень меньше
+степени знаменателя. В противном случае нужно сначала выделить целую часть
+(т.е. поделить числитель на знаменатель в стоблик).
+
+\begin{Ex}
+Разложить дробь \(\dfrac{1}{x^4 + 1}\) на сумму элементарных.
+
+Для этого нужно выделить в знаменателе разность квадратов:
+\[x^4 + 1 = x^4 + 2x^2 + 1 - 2x^2 = (x^2 + 1)^2 - 2x^2.\]
+
+А дальше действовать привычным образом.
+\end{Ex}
+
+\bigskip
+
+\begin{Ex}
+Вычислить \(\displaystyle\int\frac{2x^4 + 5x^2 - 2}{2x^3 - x - 1} \, dx\).
+
+Для начала преобразуем дробь:
+\[\frac{2x^4 + 5x^2 - 2}{2x^3 - x - 1} = x + \frac{6x^2 + x - 2}{2x^3 - x -
+1} = x + \frac{6x^2 + x - 2}{(x - 1)(2x^2 + 2x + 1)}.\]
+
+А затем разложим полученную дробь на сумму элементарных:
+\[\frac{6x^2 + x - 2}{(x - 1)(2x^2 + 2x + 1)} = \frac{A}{x - 1} + \frac{Bx
++ C}{2x^2 + 2x + 1} = \frac{A(2x^2 + 2x + 1) + (Bx + C)(x - 1)}{(x -
+1)(2x^2 + 2x + 1)}.\]
+
+Получим \(A = 1\), \(B = 4\), \(C = 3\).
+
+Тогда исходный интеграл равен:
+\begin{multline}
+\int\frac{2x^4 + 5x^2 - 2}{2x^3 - x - 1} \, dx = \int x \, dx +
+\int\frac{1}{x - 1} \, dx + \int \frac{4x + 3}{2x^2 + 2x + 1} \, dx =
+\frac{x^2}{2} + \ln|x - 1| +\\
++ \int\frac{4x + 2 + 1}{2x^2 + 2x + 1} \, dx = \frac{x^2}{2} + \ln|x - 1| +
+\int\frac{d(2x^2 + 2x + 1)}{2x^2 + 2x + 1} +
+\frac{1}{2}\int\frac{1}{\left(x + \frac{1}{2}\right)^2 + \frac{1}{4}} \, dx
+=\\
+=\frac{x^2}{2} + \ln|x - 1| + \ln(2x^2 + 2x + 1) + \frac{1}{2} \cdot
+2\arctg\left(2 \cdot \left(x + \frac{1}{2}\right)\right) + C, \; C \in \R.
+\end{multline}
+\end{Ex}
+
+\end{document}
